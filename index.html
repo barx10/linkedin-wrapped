@@ -1,0 +1,806 @@
+<!-- index.html  |  statisk, én fil, klar for GitHub Pages -->
+<!doctype html>
+<html lang="no">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Min Rewind 2025</title>
+  <meta name="description" content="Årsoppsummering på ett minutt. En post og et delbart kort." />
+
+  <style>
+    :root{
+      --bg:#0b0c10;
+      --card:#11131a;
+      --muted:#8b93a7;
+      --text:#e9ecf4;
+      --line:rgba(255,255,255,.10);
+      --accent:#7c5cff;
+      --accent2:#22c55e;
+      --warn:#f59e0b;
+      --bad:#ef4444;
+      --good:#10b981;
+      --shadow: 0 12px 40px rgba(0,0,0,.45);
+      --r:18px;
+      --max: 1080px;
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      background:
+        radial-gradient(900px 600px at 18% 12%, rgba(124,92,255,.22), transparent 60%),
+        radial-gradient(900px 600px at 80% 20%, rgba(34,197,94,.18), transparent 55%),
+        radial-gradient(700px 500px at 50% 110%, rgba(245,158,11,.10), transparent 60%),
+        var(--bg);
+      color:var(--text);
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      line-height:1.35;
+    }
+
+    a{color:inherit}
+    .wrap{max-width:var(--max); margin:0 auto; padding:28px 18px 64px}
+    .topbar{display:flex; align-items:center; justify-content:space-between; gap:14px; margin-bottom:20px}
+    .brand{display:flex; align-items:center; gap:10px}
+    .logo{
+      width:34px; height:34px; border-radius:10px;
+      background: conic-gradient(from 210deg, var(--accent), var(--accent2), #06b6d4, var(--accent));
+      box-shadow: 0 10px 25px rgba(124,92,255,.18);
+    }
+    .brand b{letter-spacing:.2px}
+    .pill{
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.04);
+      padding:8px 10px;
+      border-radius:999px;
+      display:flex;
+      align-items:center;
+      gap:8px;
+      color:var(--muted);
+      font-size:13px;
+      user-select:none;
+      white-space:nowrap;
+    }
+
+    .hero{
+      display:grid;
+      grid-template-columns: 1.25fr .75fr;
+      gap:18px;
+      margin:10px 0 18px;
+    }
+    @media (max-width: 900px){ .hero{grid-template-columns:1fr} }
+
+    .hcard{
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.03);
+      border-radius: calc(var(--r) + 8px);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+    }
+    .heroMain{padding:22px 22px 18px}
+    .kicker{
+      display:inline-flex; gap:10px; align-items:center;
+      padding:7px 10px;
+      border:1px solid var(--line);
+      border-radius:999px;
+      background: rgba(255,255,255,.04);
+      color:var(--muted);
+      font-size:13px;
+      margin-bottom:14px;
+    }
+    .dot{width:8px; height:8px; border-radius:99px; background:var(--accent2); box-shadow:0 0 0 6px rgba(16,185,129,.12)}
+    h1{margin:0 0 10px; font-size:44px; letter-spacing:-.6px}
+    .sub{margin:0 0 16px; color:var(--muted); font-size:16px; max-width:62ch}
+    .ctaRow{display:flex; gap:10px; flex-wrap:wrap; margin-top:6px}
+    button{
+      appearance:none; border:1px solid var(--line);
+      background: rgba(255,255,255,.05);
+      color:var(--text);
+      padding:11px 14px;
+      border-radius: 12px;
+      cursor:pointer;
+      font-weight:600;
+      letter-spacing:.15px;
+    }
+    button.primary{
+      border-color: rgba(124,92,255,.55);
+      background: linear-gradient(180deg, rgba(124,92,255,.38), rgba(124,92,255,.16));
+      box-shadow: 0 14px 40px rgba(124,92,255,.20);
+    }
+    button:disabled{opacity:.55; cursor:not-allowed}
+    .mini{font-size:12px; color:var(--muted); margin-top:10px}
+
+    .heroSide{padding:18px}
+    .statGrid{display:grid; grid-template-columns:1fr 1fr; gap:10px}
+    .stat{
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.03);
+      border-radius: 14px;
+      padding:12px;
+      min-height:74px;
+    }
+    .stat .k{font-size:12px; color:var(--muted)}
+    .stat .v{font-size:20px; font-weight:700; margin-top:6px}
+
+    .grid{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:18px;
+      margin-top:18px;
+    }
+    @media (max-width: 980px){ .grid{grid-template-columns:1fr} }
+
+    .card{
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.03);
+      border-radius: var(--r);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+    }
+    .card .hd{
+      padding:14px 16px;
+      border-bottom:1px solid var(--line);
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+    }
+    .card .hd b{font-size:14px}
+    .card .bd{padding:16px}
+
+    .row{display:grid; grid-template-columns: 1fr 1fr; gap:12px}
+    @media (max-width: 560px){ .row{grid-template-columns:1fr} }
+
+    label{display:block; font-size:12px; color:var(--muted); margin:0 0 6px}
+    input, textarea, select{
+      width:100%;
+      border:1px solid var(--line);
+      background: rgba(10,11,16,.55);
+      color:var(--text);
+      border-radius:12px;
+      padding:11px 12px;
+      outline:none;
+      font-size:14px;
+    }
+    textarea{min-height:110px; resize:vertical}
+    .help{font-size:12px; color:var(--muted); margin-top:8px}
+    .toggle{
+      display:flex; align-items:center; gap:10px; flex-wrap:wrap;
+      padding:10px 12px; border:1px solid var(--line); border-radius:12px;
+      background: rgba(255,255,255,.03);
+      color:var(--muted);
+      font-size:13px;
+    }
+    .toggle input{width:auto}
+    .hr{height:1px; background:var(--line); margin:14px 0}
+
+    .outBox{
+      border:1px solid var(--line);
+      background: rgba(0,0,0,.24);
+      border-radius: 14px;
+      padding:12px;
+      white-space:pre-wrap;
+      font-size:14px;
+      min-height:120px;
+    }
+
+    .canvasWrap{
+      display:grid; grid-template-columns: 1fr; gap:10px;
+      align-items:start;
+    }
+    canvas{
+      width:100%;
+      height:auto;
+      border-radius: 18px;
+      border:1px solid var(--line);
+      background:#0b0c10;
+    }
+
+    .steps{
+      display:grid; grid-template-columns: 1fr 1fr 1fr; gap:12px;
+      margin-top:18px;
+    }
+    @media (max-width: 900px){ .steps{grid-template-columns:1fr} }
+    .step{
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.03);
+      border-radius: 16px;
+      padding:14px;
+    }
+    .step .n{
+      width:30px; height:30px; border-radius: 10px;
+      display:grid; place-items:center;
+      background: rgba(124,92,255,.18);
+      border:1px solid rgba(124,92,255,.35);
+      font-weight:800;
+      margin-bottom:10px;
+    }
+    .step b{display:block; margin-bottom:6px}
+    .step p{margin:0; color:var(--muted); font-size:13px}
+
+    .foot{
+      margin-top:22px;
+      color:var(--muted);
+      font-size:12px;
+      opacity:.9;
+    }
+
+    .badge{
+      display:inline-flex; gap:8px; align-items:center;
+      padding:6px 9px; border-radius:999px;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.03);
+      color:var(--muted);
+      font-size:12px;
+    }
+
+    .toast{
+      position:fixed;
+      left:50%;
+      bottom:18px;
+      transform:translateX(-50%);
+      padding:10px 12px;
+      border:1px solid var(--line);
+      border-radius: 12px;
+      background: rgba(10,11,16,.85);
+      color:var(--text);
+      font-size:13px;
+      box-shadow: var(--shadow);
+      opacity:0;
+      pointer-events:none;
+      transition: opacity .18s ease;
+    }
+    .toast.show{opacity:1}
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <div class="topbar">
+      <div class="brand">
+        <div class="logo" aria-hidden="true"></div>
+        <div>
+          <b>Min Rewind</b><div style="color:var(--muted);font-size:12px">2025</div>
+        </div>
+      </div>
+      <div class="pill">
+        <span class="badge">statisk side</span>
+        <span class="badge">post + delbart kort</span>
+      </div>
+    </div>
+
+    <section class="hero">
+      <div class="hcard">
+        <div class="heroMain">
+          <div class="kicker"><span class="dot"></span><span>Året ditt, skrevet i din stil</span></div>
+          <h1>Rewind 2025</h1>
+          <p class="sub">Generer en årsoppsummering du kan poste, pluss et delbart kort med superkraft, vibe og nøkkeltall.</p>
+          <div class="ctaRow">
+            <button class="primary" id="btnGenerateTop">Lag Rewind</button>
+            <button id="btnDownloadTop" disabled>Last ned kort som PNG</button>
+            <button id="btnCopyTop" disabled>Kopier posttekst</button>
+          </div>
+          <div class="mini">Klientmodus støtter både demo uten API og valgfri AI via din egen endpoint.</div>
+        </div>
+      </div>
+
+      <div class="hcard">
+        <div class="heroSide">
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:10px">
+            <b style="font-size:14px">Raskt overblikk</b>
+            <span class="badge" id="yearBadge">2025</span>
+          </div>
+          <div class="statGrid">
+            <div class="stat"><div class="k">Superkraft</div><div class="v" id="statPower">–</div></div>
+            <div class="stat"><div class="k">Vibe</div><div class="v" id="statVibe">–</div></div>
+            <div class="stat"><div class="k">Topp tema</div><div class="v" id="statTheme">–</div></div>
+            <div class="stat"><div class="k">Nøkkeltall</div><div class="v" id="statMetric">–</div></div>
+          </div>
+          <div class="help" style="margin-top:10px">Kortet bygges på canvas og kan lastes ned lokalt.</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="grid">
+      <div class="card">
+        <div class="hd">
+          <b>Input</b>
+          <span class="badge">lagres i nettleseren</span>
+        </div>
+        <div class="bd">
+          <div class="row">
+            <div>
+              <label>Navn</label>
+              <input id="inName" placeholder="Kenneth" value="Kenneth" />
+            </div>
+            <div>
+              <label>År</label>
+              <input id="inYear" type="number" value="2025" />
+            </div>
+          </div>
+
+          <div class="row" style="margin-top:12px">
+            <div>
+              <label>Rolle eller arena</label>
+              <input id="inRole" placeholder="Lærer, utvikler, leder, frilanser" value="Lektor og appbygger" />
+            </div>
+            <div>
+              <label>Topp tema (kort)</label>
+              <input id="inTopTheme" placeholder="KI i skolen, sikkerhet, vibe coding" value="KI og skole" />
+            </div>
+          </div>
+
+          <div style="margin-top:12px">
+            <label>Nøkkeltall (valgfritt)</label>
+            <input id="inMetric" placeholder="f.eks. 38 prosjekter, 80 innlegg, 13 foredrag" value="–" />
+            <div class="help">Dette er bare tekst, ikke en database som dømmer deg.</div>
+          </div>
+
+          <div style="margin-top:12px">
+            <label>Høydepunkter (3 til 6 punkter, én per linje)</label>
+            <textarea id="inHighlights">Bygget flere små PWAer og prototyper
+Skrev og delte undervisningsopplegg om KI
+Testet sikkerhet på egne prosjekter
+Holdt foredrag og laget ressurser for lærere</textarea>
+          </div>
+
+          <div style="margin-top:12px">
+            <label>Stil (kort beskrivelse av stemmen)</label>
+            <input id="inVoice" value="Direkte, konkret, litt snert, ingen svada" />
+          </div>
+
+          <div class="hr"></div>
+
+          <div class="toggle">
+            <span style="color:var(--text);font-weight:700">AI modus</span>
+            <label style="margin:0;display:flex;align-items:center;gap:8px">
+              <input type="checkbox" id="aiEnabled" />
+              <span>Bruk API endpoint</span>
+            </label>
+            <span style="opacity:.9">/api/rewind</span>
+          </div>
+
+          <div style="margin-top:10px">
+            <label>Endpoint (kun hvis AI modus er på)</label>
+            <input id="inEndpoint" value="/api/rewind" />
+            <div class="help">Denne siden sender en JSON til endpoint og forventer JSON tilbake.</div>
+          </div>
+
+          <div style="margin-top:14px; display:flex; gap:10px; flex-wrap:wrap">
+            <button class="primary" id="btnGenerate">Lag Rewind</button>
+            <button id="btnSave">Lagre input</button>
+            <button id="btnReset">Nullstill</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="hd">
+          <b>Output</b>
+          <span class="badge" id="modeBadge">demo</span>
+        </div>
+        <div class="bd">
+          <div class="canvasWrap">
+            <canvas id="cardCanvas" width="1080" height="1080" aria-label="Rewind kort"></canvas>
+            <div style="display:flex;gap:10px;flex-wrap:wrap">
+              <button id="btnDownload" disabled>Last ned kort som PNG</button>
+              <button id="btnCopy" disabled>Kopier posttekst</button>
+            </div>
+          </div>
+
+          <div class="hr"></div>
+
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:8px">
+            <b style="font-size:13px">Posttekst</b>
+            <span class="badge" id="charsBadge">0 tegn</span>
+          </div>
+          <div class="outBox" id="outText">–</div>
+          <div class="help">Teksten er ment som utkast. Mennesker redigerer fortsatt bedre enn de later som.</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="steps">
+      <div class="step">
+        <div class="n">1</div>
+        <b>Fyll inn</b>
+        <p>Navn, rolle, tema, nøkkeltall og høydepunkter.</p>
+      </div>
+      <div class="step">
+        <div class="n">2</div>
+        <b>Generer</b>
+        <p>Demo lokalt, eller AI via din egen endpoint.</p>
+      </div>
+      <div class="step">
+        <div class="n">3</div>
+        <b>Del</b>
+        <p>Last ned kort som PNG og kopier postteksten.</p>
+      </div>
+    </section>
+
+    <div class="foot">
+      Bygget som statisk side. Ingen tredjeparts sporing. Ingen magi. Bare HTML, CSS og litt JavaScript.
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script>
+    const $ = (id) => document.getElementById(id);
+
+    const state = {
+      power: "–",
+      vibe: "–",
+      topTheme: "–",
+      metric: "–",
+      post: "–"
+    };
+
+    function toast(msg){
+      const t = $("toast");
+      t.textContent = msg;
+      t.classList.add("show");
+      setTimeout(()=>t.classList.remove("show"), 1100);
+    }
+
+    function getInput(){
+      const highlights = $("inHighlights").value
+        .split(/\\r?\\n/)
+        .map(s => s.trim())
+        .filter(Boolean)
+        .slice(0, 6);
+
+      return {
+        name: $("inName").value.trim() || "–",
+        year: Number($("inYear").value) || 2025,
+        role: $("inRole").value.trim() || "–",
+        topTheme: $("inTopTheme").value.trim() || "–",
+        metric: $("inMetric").value.trim() || "–",
+        highlights,
+        voice: $("inVoice").value.trim() || "Direkte og tydelig"
+      };
+    }
+
+    function saveInput(){
+      localStorage.setItem("myRewindInput", JSON.stringify(getInput()));
+      toast("Lagret");
+    }
+
+    function loadInput(){
+      const raw = localStorage.getItem("myRewindInput");
+      if(!raw) return;
+      try{
+        const d = JSON.parse(raw);
+        $("inName").value = d.name ?? "";
+        $("inYear").value = d.year ?? 2025;
+        $("inRole").value = d.role ?? "";
+        $("inTopTheme").value = d.topTheme ?? "";
+        $("inMetric").value = d.metric ?? "";
+        $("inHighlights").value = (d.highlights ?? []).join("\\n");
+        $("inVoice").value = d.voice ?? "";
+      }catch(e){}
+    }
+
+    function resetInput(){
+      localStorage.removeItem("myRewindInput");
+      location.reload();
+    }
+
+    function pick(list, seed){
+      const i = Math.abs(seed) % list.length;
+      return list[i];
+    }
+
+    function hash(str){
+      let h = 0;
+      for(let i=0;i<str.length;i++){
+        h = (h << 5) - h + str.charCodeAt(i);
+        h |= 0;
+      }
+      return h;
+    }
+
+    function demoGenerate(input){
+      const h = hash(input.name + input.role + input.topTheme + input.highlights.join("|") + input.voice + input.year);
+
+      const powers = [
+        "Bygger",
+        "Forklarer",
+        "Rydder opp",
+        "Får ting ut døra",
+        "Ser mønstre",
+        "Lærer bort"
+      ];
+
+      const vibes = [
+        "Praktisk",
+        "Nerdete",
+        "Rett på sak",
+        "Leken, men streng",
+        "Rolig og målrettet",
+        "Skarp og nysgjerrig"
+      ];
+
+      const quotes = [
+        "Mindre prat, mer bygging.",
+        "Ingen svada. Bare grep som funker.",
+        "Hvis det virker, så virker det.",
+        "Det skal være nyttig, ikke pynt.",
+        "Alt kan forbedres. Også dette.",
+        "Plan, test, iterer."
+      ];
+
+      const power = pick(powers, h);
+      const vibe = pick(vibes, h >> 3);
+      const quote = pick(quotes, h >> 6);
+
+      const bullets = input.highlights.length
+        ? input.highlights.map(x => `• ${x}`).join("\\n")
+        : "• Skapte fremdrift\\n• Holdt fokus\\n• Levererte";
+
+      const metricLine = input.metric && input.metric !== "–" ? `Nøkkeltall: ${input.metric}.` : "";
+
+      const post =
+`${input.year} i ett bilde: ${power.toLowerCase()} i praksis.
+
+Jeg har jobbet som ${input.role.toLowerCase()}, med særlig fokus på ${input.topTheme.toLowerCase()}.
+${metricLine}
+
+Høydepunkter:
+${bullets}
+
+Superkraft: ${power}.
+Vibe: ${vibe}.
+Sitatet som oppsummerer året: "${quote}"`;
+
+      return { power, vibe, topTheme: input.topTheme, metric: input.metric, post };
+    }
+
+    function setOutput(out){
+      state.power = out.power || "–";
+      state.vibe = out.vibe || "–";
+      state.topTheme = out.topTheme || "–";
+      state.metric = out.metric || "–";
+      state.post = out.post || "–";
+
+      $("statPower").textContent = state.power;
+      $("statVibe").textContent = state.vibe;
+      $("statTheme").textContent = state.topTheme;
+      $("statMetric").textContent = state.metric;
+      $("yearBadge").textContent = getInput().year;
+
+      $("outText").textContent = state.post;
+      $("charsBadge").textContent = `${state.post.length} tegn`;
+
+      drawCard(getInput(), state);
+
+      const enabled = state.post && state.post !== "–";
+      $("btnDownload").disabled = !enabled;
+      $("btnDownloadTop").disabled = !enabled;
+      $("btnCopy").disabled = !enabled;
+      $("btnCopyTop").disabled = !enabled;
+    }
+
+    function roundRect(ctx, x, y, w, h, r){
+      const rr = Math.min(r, w/2, h/2);
+      ctx.beginPath();
+      ctx.moveTo(x+rr, y);
+      ctx.arcTo(x+w, y, x+w, y+h, rr);
+      ctx.arcTo(x+w, y+h, x, y+h, rr);
+      ctx.arcTo(x, y+h, x, y, rr);
+      ctx.arcTo(x, y, x+w, y, rr);
+      ctx.closePath();
+    }
+
+    function wrapText(ctx, text, x, y, maxWidth, lineHeight, maxLines){
+      const words = (text || "").split(" ");
+      let line = "";
+      let lines = 0;
+
+      for(let i=0;i<words.length;i++){
+        const test = line ? line + " " + words[i] : words[i];
+        const w = ctx.measureText(test).width;
+        if(w > maxWidth && line){
+          ctx.fillText(line, x, y);
+          line = words[i];
+          y += lineHeight;
+          lines++;
+          if(maxLines && lines >= maxLines) return;
+        }else{
+          line = test;
+        }
+      }
+      ctx.fillText(line, x, y);
+    }
+
+    function drawCard(input, out){
+      const c = $("cardCanvas");
+      const ctx = c.getContext("2d");
+
+      ctx.clearRect(0,0,c.width,c.height);
+
+      const g1 = ctx.createRadialGradient(200, 150, 50, 200, 150, 900);
+      g1.addColorStop(0, "rgba(124,92,255,.45)");
+      g1.addColorStop(1, "rgba(11,12,16,1)");
+      ctx.fillStyle = g1;
+      ctx.fillRect(0,0,c.width,c.height);
+
+      const g2 = ctx.createRadialGradient(900, 260, 60, 900, 260, 850);
+      g2.addColorStop(0, "rgba(34,197,94,.35)");
+      g2.addColorStop(1, "rgba(0,0,0,0)");
+      ctx.fillStyle = g2;
+      ctx.fillRect(0,0,c.width,c.height);
+
+      ctx.fillStyle = "rgba(255,255,255,.06)";
+      roundRect(ctx, 58, 58, 964, 964, 44);
+      ctx.fill();
+
+      ctx.strokeStyle = "rgba(255,255,255,.10)";
+      ctx.lineWidth = 2;
+      roundRect(ctx, 58, 58, 964, 964, 44);
+      ctx.stroke();
+
+      ctx.fillStyle = "rgba(255,255,255,.12)";
+      roundRect(ctx, 92, 92, 320, 56, 20);
+      ctx.fill();
+
+      ctx.fillStyle = "#e9ecf4";
+      ctx.font = "700 26px ui-sans-serif, system-ui";
+      ctx.fillText(`REWIND ${input.year}`, 116, 130);
+
+      ctx.font = "800 72px ui-sans-serif, system-ui";
+      ctx.fillText(input.name || "–", 92, 250);
+
+      ctx.font = "600 30px ui-sans-serif, system-ui";
+      ctx.fillStyle = "rgba(233,236,244,.85)";
+      wrapText(ctx, input.role || "–", 92, 295, 880, 36, 2);
+
+      const boxY = 360;
+
+      function statBox(x, title, value){
+        ctx.fillStyle = "rgba(0,0,0,.28)";
+        roundRect(ctx, x, boxY, 452, 150, 28);
+        ctx.fill();
+        ctx.strokeStyle = "rgba(255,255,255,.10)";
+        ctx.lineWidth = 1.5;
+        roundRect(ctx, x, boxY, 452, 150, 28);
+        ctx.stroke();
+
+        ctx.fillStyle = "rgba(233,236,244,.65)";
+        ctx.font = "600 22px ui-sans-serif, system-ui";
+        ctx.fillText(title, x+24, boxY+44);
+
+        ctx.fillStyle = "#e9ecf4";
+        ctx.font = "800 44px ui-sans-serif, system-ui";
+        wrapText(ctx, value || "–", x+24, boxY+102, 404, 48, 2);
+      }
+
+      statBox(92, "Superkraft", out.power);
+      statBox(536, "Vibe", out.vibe);
+
+      ctx.fillStyle = "rgba(0,0,0,.28)";
+      roundRect(ctx, 92, 536, 896, 246, 28);
+      ctx.fill();
+      ctx.strokeStyle = "rgba(255,255,255,.10)";
+      ctx.lineWidth = 1.5;
+      roundRect(ctx, 92, 536, 896, 246, 28);
+      ctx.stroke();
+
+      ctx.fillStyle = "rgba(233,236,244,.65)";
+      ctx.font = "600 22px ui-sans-serif, system-ui";
+      ctx.fillText("Høydepunkter", 116, 580);
+
+      ctx.fillStyle = "#e9ecf4";
+      ctx.font = "600 26px ui-sans-serif, system-ui";
+      const list = (input.highlights || []).slice(0, 5);
+      let y = 626;
+      for(const item of list){
+        wrapText(ctx, "• " + item, 116, y, 840, 34, 2);
+        y += 44;
+      }
+
+      ctx.fillStyle = "rgba(233,236,244,.55)";
+      ctx.font = "600 20px ui-sans-serif, system-ui";
+      ctx.fillText(`Tema: ${out.topTheme || "–"}`, 92, 846);
+      ctx.fillText(`Nøkkeltall: ${out.metric || "–"}`, 92, 880);
+
+      ctx.fillStyle = "rgba(233,236,244,.35)";
+      ctx.font = "600 18px ui-sans-serif, system-ui";
+      ctx.fillText("Laget med Min Rewind", 92, 952);
+    }
+
+    async function aiGenerate(input){
+      const endpoint = $("inEndpoint").value.trim() || "/api/rewind";
+      const payload = {
+        input,
+        spec: {
+          want: ["superpower","vibe","post"],
+          language: "no",
+          voice: input.voice,
+          year: input.year
+        }
+      };
+
+      const res = await fetch(endpoint, {
+        method: "POST",
+        headers: {"Content-Type":"application/json"},
+        body: JSON.stringify(payload)
+      });
+
+      if(!res.ok){
+        const text = await res.text().catch(()=> "");
+        throw new Error(`Endpoint feilet (${res.status}). ${text}`.trim());
+      }
+
+      const data = await res.json();
+      return {
+        power: data.superpower || data.power || "–",
+        vibe: data.vibe || "–",
+        topTheme: input.topTheme || "–",
+        metric: input.metric || "–",
+        post: data.post || "–"
+      };
+    }
+
+    function setModeBadge(){
+      const on = $("aiEnabled").checked;
+      $("modeBadge").textContent = on ? "AI" : "demo";
+    }
+
+    async function generate(){
+      const input = getInput();
+      $("yearBadge").textContent = input.year;
+      setModeBadge();
+
+      try{
+        $("btnGenerate").disabled = true;
+        $("btnGenerateTop").disabled = true;
+
+        const out = $("aiEnabled").checked ? await aiGenerate(input) : demoGenerate(input);
+        setOutput(out);
+        toast("Ferdig");
+      }catch(e){
+        setOutput({power:"–", vibe:"–", topTheme:input.topTheme, metric:input.metric, post:`Feil: ${e.message}`});
+        toast("Feil");
+      }finally{
+        $("btnGenerate").disabled = false;
+        $("btnGenerateTop").disabled = false;
+      }
+    }
+
+    function downloadPng(){
+      const c = $("cardCanvas");
+      const url = c.toDataURL("image/png");
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `rewind-${getInput().year}.png`;
+      a.click();
+    }
+
+    async function copyPost(){
+      const text = state.post || "";
+      await navigator.clipboard.writeText(text);
+      toast("Kopiert");
+    }
+
+    $("btnGenerate").addEventListener("click", generate);
+    $("btnGenerateTop").addEventListener("click", generate);
+
+    $("btnDownload").addEventListener("click", downloadPng);
+    $("btnDownloadTop").addEventListener("click", downloadPng);
+
+    $("btnCopy").addEventListener("click", copyPost);
+    $("btnCopyTop").addEventListener("click", copyPost);
+
+    $("btnSave").addEventListener("click", saveInput);
+    $("btnReset").addEventListener("click", resetInput);
+
+    $("aiEnabled").addEventListener("change", () => { setModeBadge(); saveInput(); });
+
+    // init
+    loadInput();
+    setModeBadge();
+    setOutput(demoGenerate(getInput()));
+  </script>
+</body>
+</html>
